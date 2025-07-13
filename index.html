@@ -1,75 +1,141 @@
-
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Anime Mortal EX – Watch & Download Sub + Dub Anime</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anime Mortal EX – Stream & Download</title>
   <style>
-    body { margin: 0; background: #0d0d10; color: #fff; font-family: Arial, sans-serif; }
-    header { background: #15151b; padding: 1rem 5vw; display: flex; justify-content: space-between; align-items: center; }
-    header h1 { font-size: 1.5rem; color: #ff7b00; }
-    nav a { color: #fff; margin-left: 1rem; text-decoration: none; font-size: 0.9rem; }
-    .welcome { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #111; }
-    .welcome h2 { font-size: 2rem; margin-bottom: 1rem; background: rgba(0,0,0,0.6); padding: 0.5rem 1rem; border-radius: 8px; }
-    .welcome a { background: #ff7b00; padding: 0.75rem 1.5rem; color: #000; border-radius: 5px; font-weight: bold; text-decoration: none; }
-    .container { padding: 2rem 5vw; }
-    .search-bar { width: 100%; max-width: 400px; margin: 0 auto 2rem auto; display: flex; }
-    .search-bar input { flex: 1; padding: 0.5rem; border-radius: 5px 0 0 5px; border: none; }
-    .search-bar button { padding: 0.5rem 1rem; background: #ff7b00; border: none; border-radius: 0 5px 5px 0; color: #000; font-weight: bold; }
-    .anime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
-    .anime-card { background: #1b1b22; padding: 0.5rem; border-radius: 8px; text-align: center; }
-    .anime-card img { width: 100%; border-radius: 5px; }
-    .anime-card h3 { margin-top: 0.5rem; font-size: 0.95rem; }
-    footer { background: #15151b; padding: 1rem; position: fixed; bottom: 0; width: 100%; display: flex; justify-content: space-around; color: #aaa; }
-    footer div { text-align: center; font-size: 0.8rem; }
+    :root { --accent:#ff7b00; --bg:#0d0d10; --card:#1b1b22; --text:#ffffff; --muted:#aaaaaa; }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
+    body{background:var(--bg);color:var(--text);}
+    a{text-decoration:none;color:var(--accent)}
+    header{display:flex;justify-content:space-between;align-items:center;background:#15151b;padding:1rem 5vw;position:sticky;top:0;z-index:10}
+    header h1{color:var(--accent);font-size:1.4rem}
+    nav a{margin-left:1rem;font-weight:bold;color:#fff}
+    .container{padding:2rem 5vw;max-width:1400px;margin:auto}
+    .search-bar{max-width:400px;margin:0 auto 2rem;display:flex}
+    .search-bar input{flex:1;padding:.6rem;border:none;border-radius:6px 0 0 6px}
+    .search-bar button{padding:.6rem 1rem;border:none;border-radius:0 6px 6px 0;background:var(--accent);color:#000;font-weight:bold}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem}
+    .card{background:var(--card);border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .2s}
+    .card:hover{transform:translateY(-4px)}
+    .card img{width:100%;height:250px;object-fit:cover}
+    .card h3{padding:.5rem;font-size:.95rem;text-align:center}
+    footer{background:#15151b;color:var(--muted);text-align:center;padding:1rem;margin-top:3rem;font-size:.85rem}
+    /* Modal */
+    dialog{border:none;border-radius:8px;max-width:1000px;width:90vw;background:var(--bg);color:var(--text);overflow:hidden}
+    dialog::backdrop{background:rgba(0,0,0,.7)}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;padding:.75rem 1rem;background:#15151b;border-bottom:1px solid #2a2a33}
+    .modal-head h4{font-size:1rem}
+    .close-btn{background:none;border:none;font-size:1.3rem;color:var(--accent);cursor:pointer}
+    .player-wrap{position:relative;padding-top:56.25%}
+    .player-wrap video{position:absolute;top:0;left:0;width:100%;height:100%;background:#000}
+    .controls{display:flex;flex-wrap:wrap;gap:.5rem;padding:1rem;background:#1b1b22}
+    .controls select,.controls a{padding:.4rem .6rem;border:none;border-radius:4px;font-size:.85rem;font-weight:600;background:#24242c;color:#fff;cursor:pointer}
+    .controls a{background:var(--accent);color:#000;text-align:center}
+    .badge{background:var(--accent);color:#000;padding:.1rem .4rem;border-radius:4px;font-size:.7rem;margin-left:.25rem;font-weight:bold}
   </style>
 </head>
 <body>
-  <section class="welcome">
-    <h2>Welcome to Anime Mortal EX</h2>
-    <a href="#home">Go to Homepage</a>
-  </section>
-
-  <header id="home">
+  <header>
     <h1>Anime Mortal EX</h1>
     <nav>
       <a href="#">Login</a>
       <a href="#">Sign Up</a>
     </nav>
-  </header>
-
-  <div class="container">
+  </header>  <div class="container">
     <div class="search-bar">
-      <input type="text" placeholder="Search Anime..." id="searchInput" />
-      <button onclick="searchAnime()">Search</button>
+      <input id="searchBox" type="text" placeholder="Search anime..." oninput="filterCards()" />
+      <button onclick="filterCards()">Search</button>
+    </div><section class="grid" id="cardGrid"><!-- cards injected by JS --></section>
+
+  </div>  <footer>
+    Anime Mortal EX © 2025 – All fan content for educational purpose only.
+  </footer>  <!-- Player Modal -->  <dialog id="playerModal">
+    <div class="modal-head">
+      <h4 id="modalTitle">Episode Title</h4>
+      <button class="close-btn" onclick="playerModal.close()">✕</button>
     </div>
-
-    <h2 style="margin-bottom:1rem">Suggested Anime</h2>
-    <section class="anime-grid" id="animeGrid">
-      <div class="anime-card">
-        <img src="https://i.imgur.com/YOUR_POSTER.jpg" alt="Anime Poster">
-        <h3>Fairy Tail (Sub / Dub)</h3>
-      </div>
-    </section>
-  </div>
-
-  <footer>
-    <div>📂 Series</div>
-    <div>🏠 Home</div>
-    <div>🎬 Movies</div>
-  </footer>
-
-<script>
-  function searchAnime() {
-    const query = document.getElementById('searchInput').value.toLowerCase();
-    const grid = document.getElementById('animeGrid');
-    const cards = grid.querySelectorAll('.anime-card');
-    cards.forEach(card => {
-      const title = card.innerText.toLowerCase();
-      card.style.display = title.includes(query) ? '' : 'none';
-    });
+    <div class="player-wrap">
+      <video id="videoPlayer" controls></video>
+    </div>
+    <div class="controls" id="controlArea"><!-- dynamic --></div>
+  </dialog><script>
+// ─── 1. Anime database (edit only this section to add content) ───
+const EPISODES=[{
+  id:"ft-s02e01",
+  title:"Fairy Tail – S02E01",
+  poster:"https://i.imgur.com/2DhmtJ4.jpg",
+  streams:{
+    "480p":"https://185.237.107.115/FCKc3MA-CXLYLvawkOv_Ew/1752415078/xy/xieumjs9/oq36xx/480p.mp4",
+    "720p":"https://185.237.107.115/FCKc3MA-CXLYLvawkOv_Ew/1752415078/xy/xieumjs9/oq36xx/720p.mp4",
+    "1080p":"https://185.237.107.115/FCKc3MA-CXLYLvawkOv_Ew/1752415078/xy/xieumjs9/oq36xx/1080p.mp4"
+  },
+  subs:{
+    "English":"https://example.com/ft-s02e01-en.vtt",
+    "Japanese":"https://example.com/ft-s02e01-jp.vtt"
   }
-</script>
-</body>
+}];
+// ─── 2. Build cards ───
+const grid=document.getElementById('cardGrid');
+EPISODES.forEach(ep=>{
+  const card=document.createElement('div');card.className='card';card.dataset.id=ep.id;
+  card.innerHTML=`<img src="${ep.poster}" alt="poster"><h3>${ep.title}<span class="badge">Sub/Dub</span></h3>`;
+  card.onclick=()=>openPlayer(ep.id);
+  grid.appendChild(card);
+});
+// ─── 3. Search filter ───
+function filterCards(){
+  const q=document.getElementById('searchBox').value.toLowerCase();
+  document.querySelectorAll('.card').forEach(c=>{
+    c.style.display=c.innerText.toLowerCase().includes(q)?'':'none';
+  });
+}
+// ─── 4. Player logic ───
+const modal=document.getElementById('playerModal');
+function openPlayer(id){
+  const ep=EPISODES.find(e=>e.id===id);
+  if(!ep)return;
+  document.getElementById('modalTitle').textContent=ep.title;
+  const video=document.getElementById('videoPlayer');
+  video.innerHTML=''; // reset tracks
+  video.src=Object.values(ep.streams)[0];
+  // add subtitle tracks
+  Object.entries(ep.subs).forEach(([lang,url])=>{
+    const track=document.createElement('track');
+    track.kind='subtitles';track.label=lang;track.srclang=lang.slice(0,2).toLowerCase();track.src=url;
+    video.appendChild(track);
+  });
+  buildControls(ep);
+  video.load();video.play();
+  modal.showModal();
+}
+function buildControls(ep){
+  const area=document.getElementById('controlArea');
+  area.innerHTML='';
+  // quality selector
+  const qSel=document.createElement('select');
+  Object.keys(ep.streams).forEach(q=>{
+    const opt=document.createElement('option');opt.value=q;opt.textContent=q;area.appendChild(qSel);
+    qSel.appendChild(opt);
+  });
+  qSel.onchange=e=>{
+    const v=document.getElementById('videoPlayer');
+    v.src=ep.streams[e.target.value];v.load();v.play();
+  };
+  // subtitle selector
+  const sSel=document.createElement('select');
+  Object.keys(ep.subs).forEach(l=>{
+    const opt=document.createElement('option');opt.value=l;opt.textContent='Sub: '+l;sSel.appendChild(opt);
+  });
+  sSel.onchange=e=>{
+    const v=document.getElementById('videoPlayer');
+    [...v.textTracks].forEach(t=>t.mode='disabled');
+    const sel=[...v.textTracks].find(t=>t.label===e.target.value);
+    if(sel)sel.mode='showing';
+  };
+  area.appendChild(sSel);
+  // download button
+  const dl=document.createElement('a');dl.textContent='Download';dl.className='download';dl.href=Object.values(ep.streams)[0];dl.target='_blank';area.appendChild(dl);
+}
+</script></body>
 </html>
