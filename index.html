@@ -277,3 +277,226 @@
       videoPlayer.src = ep.streams[qualitySelect.value];
       setSubtitle(ep.subtitles[subtitleSelect.value]);
       downloadLink.href ='
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anime Mortal EX</title>
+  <style>
+    :root {
+      --primary: #ff7b00;
+      --bg: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      --card-bg: #1b1b22;
+      --text: #ffffff;
+      --muted: #aaaaaa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: rgba(21, 21, 27, 0.95);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      color: var(--primary);
+      animation: fadeIn 1.5s;
+    }
+
+    nav a {
+      color: #fff;
+      margin-left: 1.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    .welcome {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: url('https://wallpapercave.com/wp/wp9737382.jpg') no-repeat center/cover;
+      flex-direction: column;
+      animation: fadeIn 2s;
+    }
+
+    .welcome h2 {
+      font-size: 2.5rem;
+      background: rgba(0,0,0,0.6);
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .welcome a {
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .container {
+      padding: 2rem;
+    }
+
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .search-bar input {
+      padding: 0.7rem;
+      width: 60%;
+      max-width: 400px;
+      border: none;
+      border-radius: 8px 0 0 8px;
+      outline: none;
+    }
+
+    .search-bar button {
+      padding: 0.7rem 1.5rem;
+      border: none;
+      background: var(--primary);
+      color: #000;
+      font-weight: bold;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+    }
+
+    .anime-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .anime-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .anime-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+    }
+
+    .anime-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .anime-card h3 {
+      margin: 1rem 0;
+      font-size: 1rem;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(21, 21, 27, 0.95);
+      color: var(--muted);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.8rem;
+    }
+
+    footer div {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="welcome">
+    <h2>Welcome to Anime Mortal EX</h2>
+    <a href="#home">Go to Homepage</a>
+  </section>
+
+  <header id="home">
+    <h1>Anime Mortal EX</h1>
+    <nav>
+      <a href="#">Login</a>
+      <a href="#">Sign Up</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" placeholder="Search Anime..." id="searchInput" />
+      <button onclick="searchAnime()">Search</button>
+    </div>
+
+    <h2 style="margin-bottom: 1rem;">Suggested Anime</h2>
+    <section class="anime-grid" id="animeGrid">
+      <div class="anime-card">
+        <img src="https://i.imgur.com/Zh2jQTP.jpeg" alt="Anime Poster">
+        <h3>One Piece (Sub / Dub)</h3>
+      </div>
+      <div class="anime-card">
+        <img src="https://i.imgur.com/MV3h4Xf.jpeg" alt="Anime Poster">
+        <h3>Naruto Shippuden</h3>
+      </div>
+      <div class="anime-card">
+        <img src="https://i.imgur.com/y8H6wef.jpeg" alt="Anime Poster">
+        <h3>Demon Slayer</h3>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div>📂 Series</div>
+    <div>🏠 Home</div>
+    <div>🎬 Movies</div>
+  </footer>
+
+  <script>
+    function searchAnime() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const grid = document.getElementById('animeGrid');
+      const cards = grid.querySelectorAll('.anime-card');
+      cards.forEach(card => {
+        const title = card.innerText.toLowerCase();
+        card.style.display = title.includes(query) ? '' : 'none';
+      });
+    }
+  </script>
+
+</body>
+</html>
