@@ -1,0 +1,105 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(45deg, #0f0f0f, #1c1c3c);
+  color: #fff;
+}
+
+.welcome-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url('https://wallpaperaccess.com/full/2076081.gif') center/cover no-repeat;
+  text-align: center;
+}
+
+.welcome-screen h1 {
+  font-size: 2.5em;
+  background: linear-gradient(90deg, #f0f, #0ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.welcome-screen button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  background: #ff0080;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.animated-bar {
+  margin-top: 30px;
+  width: 100px;
+  height: 5px;
+  background: #fff;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scaleX(1); opacity: 1; }
+  50% { transform: scaleX(1.5); opacity: 0.5; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+
+header {
+  background: #202040;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.menu {
+  font-size: 1.8em;
+  cursor: pointer;
+}
+
+#dropdown {
+  background: #2e2e4d;
+  list-style: none;
+  padding: 10px;
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  border-radius: 10px;
+}
+
+#dropdown li {
+  margin: 10px 0;
+}
+
+.search-container {
+  margin: 20px;
+  text-align: center;
+}
+
+#searchBox {
+  padding: 10px;
+  font-size: 1em;
+  width: 80%;
+  border-radius: 5px;
+  border: none;
+}
+
+#results {
+  margin-top: 20px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  margin-top: 40px;
+}
