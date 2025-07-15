@@ -342,3 +342,47 @@
   </script>
 </body>
 </html>
+#welcome {
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #fff, #a3e4d7 40%, #fff 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGlow 4s ease-in-out infinite alternate;
+}
+@keyframes textGlow {
+  from { text-shadow: 0 0 10px #a3e4d7, 0 0 20px #a3e4d7; }
+  to   { text-shadow: 0 0 2px  #a3e4d7, 0 0 6px  #a3e4d7; }
+}
+#menu-btn {
+  font-size: 2.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+#searchBtn {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 2rem;
+  background: #a3e4d7;
+  color: #000;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px #00000055;
+  transition: transform 0.2s;
+}
+#searchBtn:hover {
+  transform: scale(1.05);
+}.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  justify-items: center;
+  margin-top: 1.5rem;
+}
+header h2 {
+  color: #a3e4d7;
+}
+
