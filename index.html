@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anime Mortal Ex</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="welcome-screen">
+    <h1>Welcome to Anime Mortal Ex</h1>
+    <button onclick="goToHome()">Go to Homepage</button>
+    <div class="animated-bar"></div>
+  </div>
+
+  <div id="main-page" style="display:none;">
+    <header>
+      <div class="logo">Anime Mortal Ex</div>
+      <div class="menu" onclick="toggleMenu()">☰</div>
+      <ul id="dropdown" class="hidden">
+        <li>Series</li>
+        <li>Language</li>
+        <li>Popular Anime</li>
+        <li>Anime Movie</li>
+        <li onclick="showSignUpForm()">Sign Up</li>
+        <li onclick="showSignInForm()">Sign In</li>
+      </ul>
+    </header>
+
+    <div class="search-container">
+      <input type="text" id="searchBox" placeholder="Search anime..." autocomplete="off">
+      <button onclick="searchAnime()" id="searchButton">🔍</button>
+      <div id="results"></div>
+    </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
