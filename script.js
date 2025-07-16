@@ -43,6 +43,9 @@ function searchAnime() {
       </div>
     `).join('');
   }
+
+  // মেনু বন্ধ করে দাও যেন কিছু চাপলে লিস্ট হাইড হয়
+  document.getElementById("dropdown").classList.add("hidden");
 }
 
 function showSignUpForm() {
@@ -59,6 +62,7 @@ function showSignUpForm() {
       </form>
     </div>
   `;
+  document.getElementById("dropdown").classList.add("hidden");
 }
 
 function showSignInForm() {
@@ -74,8 +78,33 @@ function showSignInForm() {
       </form>
     </div>
   `;
+  document.getElementById("dropdown").classList.add("hidden");
 }
 
 function closeForm() {
   document.getElementById("results").innerHTML = '';
 }
+
+// 🔑 Esc চাপলে ফর্ম বন্ধ
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {
+    document.getElementById("results").innerHTML = '';
+  }
+});
+
+// 🖱️ ফর্মের বাইরের কোথাও ক্লিক করলে ফর্ম গায়েব
+document.addEventListener("click", function(e) {
+  const form = document.querySelector(".form-card");
+  const results = document.getElementById("results");
+  if (form && !form.contains(e.target) && !e.target.closest("#dropdown")) {
+    results.innerHTML = "";
+  }
+});
+
+// ⌨️ Enter চাপলে সার্চ হবে
+document.getElementById("searchBox").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    searchAnime();
+  }
+});
